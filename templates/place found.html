@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+{% block content %}
+	<div class="container">
+		<div class="row">
+			<div class="col-sm">
+				<h2>{{ starting_place_data.candidates[0].name }}</h2>
+				<h4>{{ starting_place_data.candidates[0].formatted_address }}</h4>
+				{% if starting_place_data.candidates[0].opening_hours.open_now == True %}
+					<h4>Currently Open</h4>
+				{% else %}
+					<h4>Currently Closed</h4>
+				{% endif %}
+			</div>
+			<div class="col-sm">
+				<img src="{{starting_place_picture}}" alt="" class="img-rounded" style="width:100%;">	
+			</div>
+		</div>
+		<div class="alert alert-secondary" role="alert">
+			<h2>Results</h2>
+		</div>
+	<div class="container">
+		<div class="row">
+			{% for place in locations %}
+				<div class="col-lg-6 d-flex align-items-stretch">
+					<div class="card" style="width:100%">
+						<div class="card-body">
+							<h3 class="card-title">{{ place[0].name }}</h3>
+							<h4 class="card-title">{{ place[0].plus_code.compound_code }}</h4>
+							{% if place[0].opening_hours %}
+								{% if place[0].opening_hours.open_now == True %}
+									<h4 class="card-title">Currently Open</h4>
+								{% else %}
+									<h4 class="card-title">Currently Closed</h4>
+								{% endif %}
+							{% endif %}
+							<h4 class="card-title">Rating {{ place[0].rating }}</h4>
+							<a href="{{ url_for('map_page') }}?start={{ starting_place_data.candidates[0].place_id }}&end={{ place[0].place_id }}" class="btn btn-primary btn-lg btn-block">Directions</a>
+						</div>
+						<img class="card-img-bottom" src="{{place[1]}}" alt="">
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+{% endblock content%}

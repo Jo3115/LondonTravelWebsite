@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+{% block header %}
+{% endblock header %}
+{% block content %}
+	<h2>Information for {{ information.stops[0].aimed_departure_time }} Train To {{ information.destination_name}}</h2>
+	<table class='table'>
+		<thead>
+			<tr>
+				<th scope="col">Arival Time</th>
+				<th scope="col">Departure Time</th>
+				<th scope="col">Station Name</th>
+				<th scope="col">Platform</th>
+				<th scope="col">Station Code</th>
+			</tr>
+		</thead>
+		<div class="collapse1">
+			<tbody>
+				{% for stop in information.stops %}
+					<div id="#test" class="collapse">
+						<tr>
+							<td>{{ stop.aimed_arrival_time }}</td>
+							<td>{{ stop.aimed_departure_time }}</td>
+							<td>{{ stop.station_name }}</td>
+							<td>{{ stop.platform }}</td>
+							<td>{{ stop.station_code }}</td>
+						</tr>
+					</div>
+				{% endfor %}
+			</tbody>
+		</div>
+	</table>
+{% endblock content%}

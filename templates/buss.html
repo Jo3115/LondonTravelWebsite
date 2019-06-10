@@ -1,0 +1,58 @@
+{% extends "layout.html" %}
+{% block header %}
+{% endblock header %}
+{% block content %}
+	{% if error != ''%}
+		<div class="alert alert-danger" role="alert">
+			{{ error }}
+		</div>
+	{% endif %}
+	{% if timetable == '' %}
+		<h3> Select Buss Stop To get Buss Times </h3>
+		<form action="" method="POST">
+			<div class="form-group">
+				<label class="col-form-label" for="buss">Buss Stop Name:</label>
+					<input type="text" class="form-control"  list="buss_stops" id="buss" name="buss">
+				<label for="date_input" class="col-form-label">Date Leave Blank To Use Todays Date:</label>
+					<input class="form-control" type="date" value="" id="date_input" name="date">
+				<label for="time_input" class="col-form-label">Time Leave Blank To Use Current Time:</label>
+					<input class="form-control" type="time" value="" id="time_input" name="time">
+			</div>
+			<button type="submit" value="submit" class="btn btn-dark btn-lg btn-block mt-2">Submit</button>
+		</form>
+		{% if buss_stop %}
+			<datalist id="buss_stops">
+				{% for option in buss_stop %}
+				<option value="{{ option[1] }}">
+				{% endfor %}
+			</datalist>
+		{% endif %}
+	{% else %}
+		<table class='table'>
+			<thead>
+				<tr>
+					<th scope="col">Arival Time</th>
+					<th scope="col">Estimated Arival Time</th>
+					<th scope="col">line</th>
+					<th scope="col">line name</th>
+					<th scope="col">Operator</th>
+				</tr>
+			</thead>
+			<div class="collapse1">
+				<tbody>
+					{% for rout in timetable %}
+						<div id="#test" class="collapse">
+							<tr>
+								<td>{{ rout[1].aimed_departure_time }}</td>
+								<td>{{ rout[1].best_departure_estimate }}</td>
+								<td>{{ rout[1].line_name }}</td>
+								<td>{{ rout[1].line_name }}</td>
+								<td>{{ rout[1].operator_name }}</td>
+							</tr>
+						</div>
+					{% endfor %}
+				</tbody>
+			</div>
+		</table>
+	{% endif %}
+{% endblock content%}

@@ -1,0 +1,143 @@
+{% extends "layout.html" %}
+{% block header %}
+	 <link rel="stylesheet" href="{{ url_for('static', filename='css/weather.css') }}">
+{% endblock header %}
+{% block content %}
+	<h1></h1>
+	<div class="container">
+		<div class="row">
+			<a href="{{ url_for('weather_page') }}">
+			{% if day_number == 0 %}
+				<div class="col bg-secondary text-white rounded" style="color:white;">
+			{% else %}
+				<div class="col border border-secondary rounded" style="color:black;">
+			{% endif %}
+					<div class="container">
+						<div class="row">
+							<div class="col-sm">
+								<h2 class="center">{{ weather_data[0][((day|length)/2)|int][3][0]}}</h2>
+								<h3 class="center">{{ weather_data[0][((day|length)/2)|int][0].temp }}</h3>
+							</div>
+							<div class="col-sm">
+								<h3></h3>
+								<i class="wi wi-owm-{{weather_data[0][((day|length)/2)|int][1][0].id}} weather_icon"></i>
+							</div>
+						</div>
+					</div>
+				</div>
+			</a>
+			<a href="{{ url_for('weather_page') }}?day=1">
+			{% if day_number == 1 %}
+				<div class="col bg-secondary text-white rounded" style="color:white;">
+			{% else %}
+				<div class="col border border-secondary rounded" style="color:black;">
+			{% endif %}
+					<div class="container">
+						<div class="row">
+							<div class="col-sm">
+								<h2 class="center">{{ weather_data[1][((day|length)/2)|int][3][0]}}</h2>
+								<h3 class="center">{{ weather_data[1][((day|length)/2)|int][0].temp }}</h3>
+							</div>
+							<div class="col-sm">
+								<h3></h3>
+								<i class="wi wi-owm-{{weather_data[1][((day|length)/2)|int][1][0].id}} weather_icon"></i>
+							</div>
+						</div>
+					</div>
+				</div>
+			</a>
+			<a href="{{ url_for('weather_page') }}?day=2">
+			{% if day_number == 2 %}
+				<div class="col bg-secondary text-white rounded" style="color:white;">
+			{% else %}
+				<div class="col border border-secondary rounded" style="color:black;">
+			{% endif %}
+					<div class="container">
+						<div class="row">
+							<div class="col-sm">
+								<h2 class="center">{{ weather_data[2][((day|length)/2)|int][3][0]}}</h2>
+								<h3 class="center">{{ weather_data[2][((day|length)/2)|int][0].temp }}</h3>
+							</div>
+							<div class="col-sm">
+								<h3></h3>
+								<i class="wi wi-owm-{{weather_data[2][((day|length)/2)|int][1][0].id}} weather_icon"></i>
+							</div>
+						</div>
+					</div>
+				</div>
+			</a>
+			<a href="{{ url_for('weather_page') }}?day=3">
+			{% if day_number == 3 %}
+				<div class="col bg-secondary text-white rounded" style="color:white;">
+			{% else %}
+				<div class="col border border-secondary rounded" style="color:black;">
+			{% endif %}
+					<div class="container">
+						<div class="row">
+							<div class="col-sm">
+								<h2 class="center">{{ weather_data[3][((day|length)/2)|int][3][0]}}</h2>
+								<h3 class="center">{{ weather_data[3][((day|length)/2)|int][0].temp }}</h3>
+							</div>
+							<div class="col-sm">
+								<h3></h3>
+								<i class="wi wi-owm-{{weather_data[3][((day|length)/2)|int][1][0].id}} weather_icon"></i>
+							</div>
+						</div>
+					</div>
+				</div>
+			</a>
+			<a href="{{ url_for('weather_page') }}?day=4">
+			{% if day_number == 4 %}
+				<div class="col bg-secondary text-white rounded" style="color:white;">
+			{% else %}
+				<div class="col border border-secondary rounded" style="color:black;">
+			{% endif %}
+					<div class="container">
+						<div class="row">
+							<div class="col-sm">
+								<h2 class="center">{{ weather_data[4][((day|length)/2)|int][3][0]}}</h2>
+								<h3 class="center">{{ weather_data[4][((day|length)/2)|int][0].temp }}</h3>
+							</div>
+							<div class="col-sm">
+								<h3></h3>
+								<i class="wi wi-owm-{{weather_data[4][((day|length)/2)|int][1][0].id}} weather_icon"></i>
+							</div>
+						</div>
+					</div>
+				</div>
+			</a>		
+		</div>
+		<div class = "row">
+		</div>
+	</div>
+	<table class='table'>
+		<thead>
+			<tr>
+				<th scope="col">Time</th>
+				<th scope="col">Temperature</th>
+				<th scope="col">Humidity</th>
+				<th scope="col">Weather</th>
+				<th scope="col">Wind Speed</th>
+				<th scope="col"></th>
+			</tr>
+		</thead>
+		<div class="collapse1">
+			<tbody>
+				{% for time in weather_data[day_number] %}
+					<div id="#test" class="collapse">
+						<tr>
+							<td>{{ time[3][3] }}</td>
+							<td>{{ time[0].temp }}&#8451;</td>
+							<td>{{ time[0].humidity }}</td>
+							<td>{{ time[1][0].description }}</td>
+							<td>{{ time[2].speed }}</td>
+							<td>
+								<i class="wi wi-owm-{{ time[1][0].id }} weather_icon"></i>
+							</td>
+						</tr>
+					</div>
+				{% endfor %}
+			</tbody>
+		</div>
+	</table>
+{% endblock content%}

@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+{% block header %}
+	<style>
+		html, body, .container-fluid, #map{
+			height: 97%;
+			width:100%
+	</style>
+{% endblock header %}
+{% block fullContent %}
+	<iframe
+		width = "100%"
+		height = "100%"
+		frameborder="0"
+		style="border:0"
+		src="{{ url }}"
+	</iframe>
+{% endblock fullContent%}

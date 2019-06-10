@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+{% block content %}
+	{% if error %}
+		{% set data ='' %}
+		<div class="alert alert-danger" role="alert">
+			{{ error }}
+		</div>
+	{% endif %}
+	{% if data %}			
+		<div class="container">
+			<div class="row">
+				<div class="col-sm">
+					<h2>{{ data.candidates[0].name }}</h2>
+					<h4>{{ data.candidates[0].formatted_address }}</h4>
+					{% if data.candidates[0].opening_hours %}
+						{% if data.candidates[0].opening_hours.open_now == True%}
+							<h4>Currently Open</h4>
+						{% else %}
+							<h4>Currently Closed</h4>
+						{% endif %}
+					{% endif %}
+					<div class="dropdown">
+						<button class="btn btn-secondary dropdown-toggle btn-lg btn-block" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Seach For Nearby Places
+						</button>
+						<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+							<a class="dropdown-item" href="{{ url_for('place_found') }}?place={{ data.candidates[0].name }}&query=Restaurant">Restaurant</a>
+							<a class="dropdown-item" href="{{ url_for('place_found') }}?place={{ data.candidates[0].name }}&query=parking">Parking</a>
+							<a class="dropdown-item" href="{{ url_for('place_found') }}?place={{ data.candidates[0].name }}&query=atm">Atm</a>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm">
+					<img src="{{image}}" alt="" class="img-rounded" style="width:100%;">	
+				</div>
+			</div>
+		</div>
+	{% else %}
+		<h1>Enter A Place To Look Up Information And Find Nearby Information</h1>
+		<form action="" method="POST">
+			<div class="input-group input-group-lg">
+				<div class="input-group-prepend">
+					<span class="input-group-text" id="inputGroup-sizing-lg">Place To Search For</span>
+				</div>
+				<input type="text" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm" name="place_name">
+			</div>
+			<button type="submit" value="submit" class="btn btn-secondary btn-lg btn-block">Submit</button>
+		<form>
+	{% endif %}
+{% endblock content%}

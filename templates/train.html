@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+{% block header %}
+{% endblock header %}
+{% block content %}
+	{% if error %}
+		<div class="alert alert-danger" role="alert">
+			{{ error }}
+		</div>
+	{% endif %}
+	{% if timetable == '' %}
+		<h3> Select Station To get Departure Times </h3>
+		<form action="" method="POST">
+			<div class="form-group">
+				<label class="col-form-label" for="station">Station Name:</label>
+					<input type="text" class="form-control"  list="stations" id="station" name="station">
+				<label for="date_input" class="col-form-label">Date Leave Blank To Use Todays Date:</label>
+					<input class="form-control" type="date" value="" id="date_input" name="date">
+				<label for="time_input" class="col-form-label">Time Leave Blank To Use Current Time:</label>
+					<input class="form-control" type="time" value="" id="time_input" name="time">
+			</div>
+			<button type="submit" value="submit" class="btn btn-dark btn-lg btn-block mt-2">Submit</button>
+		</form>
+		{% if train_stations %}
+			<datalist id="stations">
+				{% for option in train_stations %}
+				<option value="{{ option }}">
+				{% endfor %}
+			</datalist>
+		{% endif %}
+	{% else %}
+	<div class="container">
+		<div class="row">
+			{% for train in timetable.departures.all %}
+				<div class="col-lg-3 d-flex align-items-stretch">
+					<div class="card" style="width:100%">
+						<div class="card-body">
+							<h4 class="card-title">{{ train.destination_name }}</h4>
+							<p class="card-text">
+							Departure Time: {{ train.aimed_departure_time }}<br />
+							Opperator: {{ train.operator_name }}<br />
+							Platform: {{ train.platform }}<br />
+							Survice Number: {{ train.service }}</p>
+							<a href="{{ url_for('train_page_info') }}?url={{ train.service_timetable.id }}" class="btn btn-primary btn-lg btn-block">More Information</a>
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+	{% endif %}
+{% endblock content%}
