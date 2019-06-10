@@ -115,12 +115,12 @@ def map_page():
     end = request.args.get('end')
     if start is None:
         url = 'https://www.google.com/maps/embed/v1/place?' \
-              'key=AIzaSyBKV4ru8MuUJmvo3JRf-XhzcwYyBf6bx8M' \
+              'key=' \
               '&q=London'
     else:
         url = 'https://www.google.com/maps/embed/v1/directions?'\
               'origin=place_id:' + start + '&destination=place_id:' + end + \
-              '&mode=walking&key=AIzaSyBKV4ru8MuUJmvo3JRf-XhzcwYyBf6bx8M'
+              '&mode=walking&key='
     return render_template('map.html',
                            title='Map',
                            url=url,
